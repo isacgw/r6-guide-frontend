@@ -3,6 +3,7 @@ import { Stage, Layer, Image, Line } from "react-konva";
 import useImage from "use-image";
 import { nanoid } from "nanoid";
 import "./CanvasApp.css";
+import r6operators from "r6operators";
 import {
   Pen,
   MousePointer,
@@ -110,7 +111,6 @@ export default function CanvasApp() {
         <h1>
           🏝️ Coastline <span className="text-sm">2F Hookah / 2F Billiard</span>
         </h1>
-
         <div className="main-layout">
           <div className="canvas-container">
             <Stage
@@ -239,9 +239,31 @@ export default function CanvasApp() {
             </div>
 
             <p style={{ marginTop: "16px" }}>
-              Drag and place icons onto the canvas 🙂 (coming SOON...!)
+              Drag and place icons onto the canvas 🙂
             </p>
+            <div className="operators-grid">
+              {Object.entries(r6operators).map(([key, operator]) => (
+                  <div
+                      key={key}
+                      dangerouslySetInnerHTML={{
+                        __html: operator.toSVG({
+                          class: "operator-icon",
+                          width: 60,
+                          height: 60
+                        })
+                      }}
+                      style={{
+                        width: 60,
+                        height: 60,
+                        margin: "8px",
+                        cursor: "pointer"
+                      }}
+                      title={operator.name}
+                  />
+              ))}
+            </div>
           </div>
+
         </div>
 
         {/* Notes Panel */}

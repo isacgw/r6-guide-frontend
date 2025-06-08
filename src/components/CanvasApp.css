@@ -271,3 +271,13 @@ h1 {
 .canvas-stage.hand-mode {
     cursor: grab;
 }
+
+.operators-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 4px; /* small space for scrollbar */
+}
+
