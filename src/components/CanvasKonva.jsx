@@ -223,46 +223,64 @@ export default function CanvasApp() {
               </button>
             </div>
 
-            <div className="sidebar-switch">
-              <button
-                  className={team === "attack" ? "active" : ""}
-                  onClick={() => setTeam("attack")}
-              >
-                Attack
-              </button>
-              <button
-                  className={team === "defense" ? "active" : ""}
-                  onClick={() => setTeam("defense")}
-              >
-                Defense
-              </button>
-            </div>
+            {/* Show Attack/Defense switch ONLY in Operators tab */}
+            {activeTab === "operators" && (
+                <div className="sidebar-switch">
+                  <button
+                      className={team === "attack" ? "active" : ""}
+                      onClick={() => setTeam("attack")}
+                  >
+                    Attack
+                  </button>
+                  <button
+                      className={team === "defense" ? "active" : ""}
+                      onClick={() => setTeam("defense")}
+                  >
+                    Defense
+                  </button>
+                </div>
+            )}
 
-            <p style={{ marginTop: "16px" }}>
-              Drag and place icons onto the canvas 🙂
-            </p>
-            <div className="operators-grid">
-              {Object.entries(r6operators).map(([key, operator]) => (
-                  <div
-                      key={key}
-                      dangerouslySetInnerHTML={{
-                        __html: operator.toSVG({
-                          class: "operator-icon",
-                          width: 60,
-                          height: 60
-                        })
-                      }}
-                      style={{
-                        width: 60,
-                        height: 60,
-                        margin: "8px",
-                        cursor: "pointer"
-                      }}
-                      title={operator.name}
-                  />
-              ))}
-            </div>
+            {/* Conditional rendering based on activeTab */}
+            {activeTab === "operators" && (
+                <div className="operators-grid">
+                  {Object.entries(r6operators)
+                      .filter(([key, operator]) => {
+                        if (team === "attack") return operator.role === "Attacker";
+                        if (team === "defense") return operator.role === "Defender";
+                        return true;
+                      })
+                      .map(([key, operator]) => (
+                          <div
+                              key={key}
+                              dangerouslySetInnerHTML={{
+                                __html: operator.toSVG({
+                                  class: "operator-icon",
+                                  width: 60,
+                                  height: 60
+                                })
+                              }}
+                              style={{
+                                width: 60,
+                                height: 60,
+                                margin: "8px",
+                                cursor: "pointer"
+                              }}
+                              title={operator.name}
+                          />
+                      ))}
+                </div>
+            )}
+
+
+            {activeTab === "utility" && (
+                <div className="utility-grid" style={{ marginTop: "16px" }}>
+                  <p style={{ fontStyle: "italic", color: "#aaa" }}>Coming soon...</p>
+                </div>
+            )}
           </div>
+
+
 
         </div>
 
