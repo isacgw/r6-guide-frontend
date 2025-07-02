@@ -106,26 +106,6 @@ export default function CanvasApp() {
     }
   };
 
-  function DragAndDrop() {
-    const [state] = useState(
-        {
-          x: 100,
-          y: 200,
-          isDragging: false
-        })
-    return (
-        <Image
-            image={yoda}
-            height={100}
-            width={100}
-          x={state.x}
-          y={state.y}
-          draggable={true}
-          />
-    )
-  }
-
-
   return (
       <div className="app-wrapper">
         <h1>
@@ -147,7 +127,6 @@ export default function CanvasApp() {
                 className="canvas-stage"
             >
               <Layer>
-                <DragAndDrop/>
                 <Image
                     image={image}
                     scaleX={fitScale}
